@@ -5,7 +5,6 @@ type Browser struct {
 	Share string `json:"share"`
 }
 
-
 func NewResponse(statCounterChart *StatCounterChart) ([]*Browser) {
 	browsers := make([]*Browser, len(statCounterChart.Browsers))
 
