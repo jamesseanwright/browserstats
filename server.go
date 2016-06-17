@@ -5,10 +5,10 @@ import (
 	"encoding/json"	
 	"fmt"
 	"log"
+	"os"
 	"browserstats/internal"
 )
 
-const Port = "8080"
 const FromParamKey = "from"
 const ToParamKey = "to"
 
@@ -18,7 +18,7 @@ var	requestValidator = internal.NewRequestValidator()
 func main() {
 	http.HandleFunc("/stats", getStats)
 	fmt.Println("Listing on port", Port)
-	log.Fatal(http.ListenAndServe(":" + Port, nil))
+	log.Fatal(http.ListenAndServe(":" + os.Getenv("PORT"), nil))
 }
 
 func getStats(response http.ResponseWriter, request *http.Request) {
