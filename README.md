@@ -29,7 +29,7 @@ These parameters must be specified in a `YYYY-MM` format, otherwise one will rec
 * `git clone https://github.com/jamesseanwright/browserstats.git`
 * `cd browserstats`
 * `godep restore`
-* PORT=8080 go run server.go
+* `PORT=8080 go run server.go`
 
 
 ## Unit Tests
