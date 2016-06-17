@@ -12,7 +12,8 @@ const FromParamKey = "from"
 const ToParamKey = "to"
 
 var	statCounterClient = internal.NewStatCounterClient()	
-var	requestValidator = internal.NewRequestValidator()	
+var	requestValidator = internal.NewRequestValidator()
+var	responseBuilder = internal.NewResponseBuilder()
 
 func main() {
 	http.HandleFunc("/stats", getStats)
@@ -21,7 +22,7 @@ func main() {
 }
 
 func getStats(response http.ResponseWriter, request *http.Request) {
-	//statCounterChannel := make(chan *internal.StatCounterResponse)
+	statCounterChannel := make(chan *internal.StatCounterResponse)
 	fromDate, toDate, err := requestValidator.Validate(request.URL.Query())
 
 	if (err != nil) {
@@ -29,5 +30,14 @@ func getStats(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	statCounterClient.GetBrowserShare(fromDate, toDate)
+	go statCounterClient.GetBrowserShare(fromDate, toDate, statCounterChannel)
+
+	statCounterResponse := <- statCounterChannel
+
+	if (statCounterResponse.Error != nil) {
+		http.Error(response, statCounterResponse.Error.Error(), http.StatusInternalServerError)
+		return	
+	}
+
+	responseBuilder.Build(statCounterResponse.Response)
 }

@@ -29,11 +29,11 @@ func (requestValidator *RequestValidator) Validate(query map[string][]string) (s
 	}
 
 	if len(fromParam) > 1 || !dateFormat.MatchString(fromParam[0]) {
-		return "", "", errors.New("from date data format is invalid")
+		return "", "", errors.New("from date format is invalid")
 	}
 
 	if len(toParam) > 1 || !dateFormat.MatchString(toParam[0]) {
-		return "", "", errors.New("to date data format is invalid")
+		return "", "", errors.New("to date format is invalid")
 	}
 
 	return fromParam[0], toParam[0], nil
