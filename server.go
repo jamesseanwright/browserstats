@@ -17,7 +17,7 @@ var	requestValidator = internal.NewRequestValidator()
 
 func main() {
 	http.HandleFunc("/stats", getStats)
-	fmt.Println("Listing on port", Port)
+	fmt.Println("Listing on port", os.Getenv("PORT"))
 	log.Fatal(http.ListenAndServe(":" + os.Getenv("PORT"), nil))
 }
 
