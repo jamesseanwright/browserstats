@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"encoding/json"	
 	"fmt"
 	"log"
 	"browserstats/internal"
@@ -13,8 +14,6 @@ const ToParamKey = "to"
 
 var	statCounterClient = internal.NewStatCounterClient()	
 var	requestValidator = internal.NewRequestValidator()
-var	responseBuilder = internal.NewResponseBuilder()
-
 func main() {
 	http.HandleFunc("/stats", getStats)
 	fmt.Println("Listing on port", Port)
@@ -39,5 +38,15 @@ func getStats(response http.ResponseWriter, request *http.Request) {
 		return	
 	}
 
-	responseBuilder.Build(statCounterResponse.Response)
+	responseData := internal.NewResponse(statCounterResponse.Response)
+	jsonBytes, marshalErr := json.Marshal(&responseData)
+
+	if (marshalErr != nil) {
+		http.Error(response, statCounterResponse.Error.Error(), http.StatusInternalServerError)
+		return	
+	}
+
+	response.Header().Set("Content-Type", "application/json; charset=utf-8")
+	response.WriteHeader(http.StatusOK)
+	response.Write(jsonBytes)
 }
