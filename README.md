@@ -34,4 +34,6 @@ These parameters must be specified in a `YYYY-MM` format, otherwise one will rec
 
 ## Unit Tests
 
-They're on their way!
+`go test ./internal/tests/`
+
+Only some coverage thus far.
