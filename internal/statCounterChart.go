@@ -1,5 +1,5 @@
 package internal
 
 type StatCounterChart struct {
-	Browsers []StatCounterSet `xml:"set"`
+	Browsers []*StatCounterSet `xml:"set"`
 }
