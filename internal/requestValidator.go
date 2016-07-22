@@ -5,8 +5,8 @@ import (
 	"regexp"
 )
 
-const FromParamKey = "from"
-const ToParamKey = "to"
+const fromParamKey = "from"
+const toParamKey = "to"
 
 var dateFormat = regexp.MustCompile(`[0-9]{4}-[0-9]{2}`)
 
@@ -17,8 +17,8 @@ func NewRequestValidator() (*RequestValidator) {
 }
 
 func (requestValidator *RequestValidator) Validate(query map[string][]string) (string, string, error) {
-	fromParam := query[FromParamKey]
-	toParam := query[ToParamKey]
+	fromParam := query[fromParamKey]
+	toParam := query[toParamKey]
 
 	if fromParam == nil {
 		return "", "", errors.New("from parameter is missing")

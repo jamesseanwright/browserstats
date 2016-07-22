@@ -9,9 +9,6 @@ import (
 	"browserstats/internal"
 )
 
-const FromParamKey = "from"
-const ToParamKey = "to"
-
 var	statCounterClient = internal.NewStatCounterClient()	
 var	requestValidator = internal.NewRequestValidator()
 

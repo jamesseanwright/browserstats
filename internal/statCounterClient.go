@@ -9,9 +9,9 @@ import (
 	"github.com/hashicorp/golang-lru"
 )
 
-const CacheSize = 500
+const cacheSize = 500
 
-var cache, err = lru.New(CacheSize)
+var cache, err = lru.New(cacheSize)
 
 type StatCounterClient struct {
 	BaseUrl string
@@ -20,7 +20,7 @@ type StatCounterClient struct {
 }
 
 func NewStatCounterClient() (*StatCounterClient) {
-	cache, err := lru.New(CacheSize)
+	cache, err := lru.New(cacheSize)
 
 	if (err != nil) { panic(err) }
 
